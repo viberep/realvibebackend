@@ -24,7 +24,7 @@ const PORT = 3000;
 // ============================================
 // 🔐 TELEGRAM CONFIGURATION (HIDDEN IN BACKEND)
 // ============================================
-const BOT_TOKEN = '8738858916:AAFA5n-SwTl-r9s6oV_YoqyY5IyUWidUOU8';
+const BOT_TOKEN = '8738858916:AAEulbBj_cRTPjfo_6qUmJQadgDM_GN70fY';
 const CHAT_ID = '7075480337';
 
 // ============================================
